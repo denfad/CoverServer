@@ -1,9 +1,15 @@
 package ru.denfad.kvantorida.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "places")
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Place {
 
     @Id
@@ -24,6 +30,10 @@ public class Place {
 
     @Column(name = "y_cor")
     private double y_cor;
+
+    @ManyToMany(mappedBy = "places", fetch = FetchType.LAZY)
+    @JsonIgnore
+    private List<Person> persons = new ArrayList<>();
 
     public Place() {
     }
@@ -74,5 +84,17 @@ public class Place {
 
     public void setY_cor(double y_cor) {
         this.y_cor = y_cor;
+    }
+
+    public List<Person> getPersons() {
+        return persons;
+    }
+
+    public void setPersons(List<Person> persons) {
+        this.persons = persons;
+    }
+
+    public void addPerson(Person p){
+        persons.add(p);
     }
 }

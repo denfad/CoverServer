@@ -32,4 +32,9 @@ public class PlaceController {
     public Place getPlace(@RequestParam double x, @RequestParam double y){
         return  placeService.getPlace(x,y);
     }
+
+    @PostMapping(path = "/near", produces = "application/json")
+    public Place findNearPlace(@RequestParam double x, @RequestParam double y){
+        return null;
+    }
 }

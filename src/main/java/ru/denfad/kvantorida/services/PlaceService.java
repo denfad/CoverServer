@@ -31,4 +31,16 @@ public class PlaceService {
         return placeRepository.getPlaceByXAndY(x, y);
     }
 
+    public Place getPlaceById(int id){
+        return placeRepository.getOne(id);
+    }
+
+    public Place findNearestPlace(double x, double y){
+        return null;
+    }
+
+    public List<Integer> getPlacesId(){
+        return placeRepository.getAllPlaceIds();
+    }
+
 }

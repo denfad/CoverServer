@@ -1,9 +1,14 @@
 package ru.denfad.kvantorida.models;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Table(name = "persons")
+@JsonIgnoreProperties({"hibernateLazyInitializer"})
 public class Person {
 
     @Id
@@ -27,6 +32,12 @@ public class Person {
 
     @Column(name = "status")
     private String status;
+
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.MERGE, CascadeType.PERSIST})
+    @JoinTable(name = "persons_places",
+            joinColumns = { @JoinColumn(name = "persons_id") },
+            inverseJoinColumns = { @JoinColumn(name = "places_id") })
+    private List<Place> places = new ArrayList<>();
 
     public Person() {
     }
@@ -71,19 +82,32 @@ public class Person {
         this.age = age;
     }
 
-    public String getAdress() {
-        return address;
-    }
-
-    public void setAdress(String adress) {
-        this.address = adress;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public void setAddress(String address) {
+        this.address = address;
+    }
+
+    public List<Place> getPlaces() {
+        return places;
+    }
+
+    public void setPlaces(List<Place> places) {
+        this.places = places;
+    }
+
+    public void addPlace(Place place){
+        place.addPerson(this);
+        places.add(place);
     }
 }

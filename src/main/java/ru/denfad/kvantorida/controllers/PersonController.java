@@ -33,5 +33,14 @@ public class PersonController {
         return personService.addPerson(person);
     }
 
+    @PostMapping(path = "/update", consumes = "application/json", produces = "application/json")
+    public Person updatePerson(@RequestBody Person person){
+        return personService.updatePerson(person);
+    }
+
+    @GetMapping(path = "/add_place", produces = "application/json")
+    public Person addPlace(@RequestParam int personId, @RequestParam int placeId){
+        return personService.addPlace(personId,placeId);
+    }
 
 }

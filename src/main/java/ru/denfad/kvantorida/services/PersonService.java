@@ -13,10 +13,12 @@ import java.util.List;
 public class PersonService {
 
     private final PersonRepository personRepository;
+    private final PlaceService placeService;
 
     @Autowired
-    public PersonService(PersonRepository personRepository) {
+    public PersonService(PersonRepository personRepository, PlaceService placeService) {
         this.personRepository = personRepository;
+        this.placeService = placeService;
     }
 
     public Person addPerson(Person p){
@@ -29,5 +31,20 @@ public class PersonService {
 
     public Person checkPerson(String login, String password){
         return personRepository.findUserByLoginAndPassword(login,password);
+    }
+
+    public Person updatePerson(Person person){
+        return  personRepository.save(person);
+    }
+
+    public Person getPersonById(int id){
+        return personRepository.getOne(id);
+    }
+
+    public Person addPlace(int personId, int placeId){
+        Person p = getPersonById(personId);
+        p.addPlace(placeService.getPlaceById(placeId));
+        personRepository.save(p);
+        return p;
     }
 }
