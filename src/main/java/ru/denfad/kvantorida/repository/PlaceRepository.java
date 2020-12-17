@@ -14,4 +14,14 @@ public interface PlaceRepository extends JpaRepository<Place, Integer> {
 
     @Query("select p.id from Place p")
     List<Integer> getAllPlaceIds();
+
+    @Query("select p from Place p where p.type = :type")
+    List<Place> getPlacesByType(@Param("type") String type);
+
+
+    @Query(
+            value =  "SELECT * FROM places p WHERE POWER(:x - p.x_cor,2)+POWER(:y - p.y_cor,2) < 0.0025 AND p.type =:type ",
+            nativeQuery = true
+    )
+    List<Place> getNearPlaces(@Param("x") double x, @Param("y") double y, @Param("type") String type);
 }

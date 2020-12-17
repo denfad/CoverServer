@@ -35,12 +35,23 @@ public class PlaceService {
         return placeRepository.getOne(id);
     }
 
-    public Place findNearestPlace(double x, double y){
-        return null;
+    public Place findNearestPlace(double x, double y, String type){
+        double rad = 80;
+        Place pl = new Place();
+        for(Place p: placeRepository.getNearPlaces(x,y,type)){
+            if( Math.pow(p.getX_cor()-x,2)+Math.pow(p.getY_cor()-y,2)<rad){
+                System.out.println( Math.pow(p.getX_cor()-x,2)+Math.pow(p.getY_cor()-y,2));
+                rad = Math.pow(p.getX_cor()-x,2)+Math.pow(p.getY_cor()-y,2);
+                pl = p;
+            }
+        }
+        return pl;
     }
 
     public List<Integer> getPlacesId(){
         return placeRepository.getAllPlaceIds();
     }
+
+    public List<Place> getPlacesByType(String type){ return placeRepository.getPlacesByType(type);}
 
 }

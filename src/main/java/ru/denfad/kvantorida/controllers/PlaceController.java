@@ -23,6 +23,11 @@ public class PlaceController {
         return placeService.getAllPlaces();
     }
 
+    @GetMapping(path = "/type", produces = "application/json")
+    public List<Place> getPlacesByType(@RequestParam String type){
+        return placeService.getPlacesByType(type);
+    }
+
     @PostMapping(path = "/add", consumes = "application/json",produces =  "application/json")
     public Place addPlace(@RequestBody Place place){
         return placeService.addPlace(place);
@@ -33,8 +38,8 @@ public class PlaceController {
         return  placeService.getPlace(x,y);
     }
 
-    @PostMapping(path = "/near", produces = "application/json")
-    public Place findNearPlace(@RequestParam double x, @RequestParam double y){
-        return null;
+    @GetMapping(path = "/near", produces = "application/json")
+    public Place findNearPlace(@RequestParam double x, @RequestParam double y, @RequestParam String type){
+        return placeService.findNearestPlace(x,y,type);
     }
 }

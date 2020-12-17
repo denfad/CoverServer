@@ -47,4 +47,8 @@ public class PersonService {
         personRepository.save(p);
         return p;
     }
+
+    public int getIllPersons(String status){
+        return personRepository.getIllPersons(status);
+    }
 }
