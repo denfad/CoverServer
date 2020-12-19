@@ -59,8 +59,11 @@ public class UpdateDataService {
             }
             mid = mid / p.getPersons().size();
             coef = coef + mid + Double.valueOf(personService.getIllPersons("Есть положительный тест") )/ 100000;
-            p.setCoefficient(coef);
-            placeService.addPlace(p);
+            if(!Double.isNaN(coef)){
+                p.setCoefficient(coef);
+                placeService.addPlace(p);
+            }
+
         }
     }
 }
