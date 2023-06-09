@@ -3,4 +3,4 @@
 Cover позволяет отслеживать распространение Короновируса по местам города и снизить риски заражения пользователя.
 
 - [Презентация проекта](https://github.com/denfad/CoverClient/blob/master/COVER.pdf)
-- [Приложения](https://github.com/denfad/CoverClient)
+- [Приложение](https://github.com/denfad/CoverClient)
